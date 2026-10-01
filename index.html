@@ -104,30 +104,45 @@ h1 .grad { background:linear-gradient(100deg, var(--g1), var(--g2) 35%, var(--g3
 .stat b { font-size:16px; font-variant-numeric:tabular-nums; }
 .stat span { color:var(--muted); font-size:12.5px; }
 
-/* Toolbar */
-.toolbar { position:sticky; top:12px; z-index:5; margin:26px 0 8px; padding:10px; display:flex; flex-wrap:wrap; gap:10px 14px;
-           align-items:center; border:1px solid var(--line); border-radius:16px; background:color-mix(in srgb, var(--bg2) 72%, transparent);
-           backdrop-filter:blur(16px) saturate(1.4); box-shadow:var(--shadow); }
-.controls { display:flex; flex-wrap:wrap; gap:8px; align-items:center; flex:1; }
-.controls label { position:relative; display:flex; align-items:center; gap:8px; color:var(--muted); font-size:12px; font-weight:500; }
-select, input { font:inherit; font-size:13px; color:var(--fg); background:var(--card-hi); border:1px solid var(--line);
-                border-radius:10px; padding:7px 30px 7px 11px; outline:none; transition:border-color .15s, box-shadow .15s;
-                -webkit-appearance:none; appearance:none; }
-select { background-image:linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
-         background-position:calc(100% - 15px) 52%, calc(100% - 10px) 52%; background-size:5px 5px; background-repeat:no-repeat; cursor:pointer; }
+/* Toolbar: the filters on one sticky row; the key below it, out of their way */
+.toolbar { position:sticky; top:12px; z-index:5; margin:26px 0 0; padding:8px; display:flex; flex-wrap:wrap; gap:8px;
+           align-items:center; border:1px solid var(--line-hi); border-radius:18px; background:color-mix(in srgb, var(--bg2) 78%, transparent);
+           backdrop-filter:blur(18px) saturate(1.5); box-shadow:var(--shadow); }
+.field { display:flex; align-items:center; gap:2px; padding-left:12px; border:1px solid var(--line); border-radius:12px; background:var(--card-hi);
+         transition:border-color .15s, box-shadow .15s; }
+.field:hover { border-color:var(--line-hi); }
+.field:focus-within { border-color:var(--l3); box-shadow:0 0 0 3px color-mix(in srgb, var(--l3) 28%, transparent); }
+.field > span, .chips > span { font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); }
+select, input { font:inherit; font-size:13px; color:var(--fg); outline:none; -webkit-appearance:none; appearance:none; }
+select { border:0; background-color:transparent; padding:8px 30px 8px 6px; cursor:pointer; font-weight:550;
+         background-image:linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+         background-position:calc(100% - 15px) 52%, calc(100% - 10px) 52%; background-size:5px 5px; background-repeat:no-repeat; }
 select option { background:var(--bg2); color:var(--fg); }
-input { padding-right:11px; padding-left:32px; width:190px; }
-.search::before { content:""; position:absolute; left:11px; top:50%; width:11px; height:11px; margin-top:-7px; border:1.5px solid var(--muted);
-                  border-radius:50%; pointer-events:none; }
-.search::after { content:""; position:absolute; left:21px; top:50%; width:5px; height:1.5px; margin-top:4px; background:var(--muted);
-                 transform:rotate(45deg); pointer-events:none; }
-.search { padding:0; }
-select:hover, input:hover { border-color:var(--line-hi); }
-select:focus-visible, input:focus { border-color:var(--l3); box-shadow:0 0 0 3px color-mix(in srgb, var(--l3) 30%, transparent); }
-.legend { display:flex; gap:12px; flex-wrap:wrap; font-size:12px; color:var(--muted); align-items:center; }
+.chips { display:flex; flex-wrap:wrap; align-items:center; gap:3px; padding:3px 3px 3px 12px; border:1px solid var(--line); border-radius:12px;
+         background:var(--card-hi); }
+.chips > span { margin-right:5px; }
+.chips button { border:0; cursor:pointer; font:inherit; font-size:12.5px; font-weight:550; color:var(--muted); background:none;
+                padding:5px 10px; border-radius:9px; display:inline-flex; align-items:center; gap:7px; transition:background-color .2s, color .2s, box-shadow .2s; }
+.chips button:hover { color:var(--fg); background:var(--card); }
+.chips button small { font-size:11px; font-variant-numeric:tabular-nums; color:var(--faint); padding:0 6px; border-radius:6px; background:var(--card); }
+.chips button[aria-pressed="true"] { color:var(--fg); background:color-mix(in srgb, var(--l3) 22%, transparent);
+                                     box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--l3) 55%, transparent); }
+.chips button[aria-pressed="true"] small { color:var(--fg); background:color-mix(in srgb, var(--l3) 30%, transparent); }
+.search { position:relative; flex:1 1 200px; display:flex; }
+.search svg { position:absolute; left:12px; top:50%; width:15px; height:15px; margin-top:-7.5px; color:var(--muted); pointer-events:none; }
+.search input { width:100%; padding:9px 12px 9px 36px; border:1px solid var(--line); border-radius:12px; background:var(--card-hi);
+                transition:border-color .15s, box-shadow .15s; }
+.search input:hover { border-color:var(--line-hi); }
+.search input:focus { border-color:var(--l3); box-shadow:0 0 0 3px color-mix(in srgb, var(--l3) 28%, transparent); }
+.legend { display:flex; gap:8px 18px; flex-wrap:wrap; font-size:12px; color:var(--muted); align-items:center; margin:12px 6px 0; }
+.legend::before { content:"Key"; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); }
 .scale { display:flex; align-items:center; gap:3px; }
 .scale i, .legend i { display:inline-block; width:12px; height:12px; border-radius:3px; }
 .legend .mark { display:inline-flex; align-items:center; gap:6px; }
+#history .seg { display:inline-flex; padding:3px; gap:2px; border:1px solid var(--line); border-radius:10px; background:var(--card-hi); }
+#history .seg button { border:0; cursor:pointer; font:inherit; font-size:12px; font-weight:600; color:var(--muted); background:none; padding:4px 10px; border-radius:7px; }
+#history .seg button[aria-pressed="true"] { color:var(--fg); background:color-mix(in srgb, var(--g2) 22%, transparent); }
+#chart .area { opacity:0; animation:fadein .9s ease .5s forwards; }
 
 /* Findings */
 details#findings { margin:14px 0 0; border:1px solid var(--line); border-radius:14px; background:var(--card); backdrop-filter:blur(8px); }
@@ -254,14 +269,16 @@ footer p { max-width:860px; margin:16px 0 0; }
   section.wide { grid-column:auto; }
 }
 @media (max-width: 520px) {
+  .field { flex:1 1 140px; }
+  .field select { flex:1; }
+  .chips { flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; width:100%; }
+  .chips button { white-space:nowrap; }
+
   .wrap { padding:0 16px; }
   header { padding-top:32px; }
   .pipeline { grid-template-columns:repeat(2, minmax(0,1fr)); }
   .stage::after { display:none; }
   main { grid-template-columns:1fr; }
-  input { width:100%; }
-  .controls label { flex:1 1 140px; }
-  .controls select { width:100%; }
   details#findings ul { grid-template-columns:1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -288,21 +305,20 @@ footer p { max-width:860px; margin:16px 0 0; }
   <div class="pipeline" id="pipeline"></div>
   <div class="stats" id="stats"></div>
   <section id="history" hidden aria-labelledby="historyTitle">
-    <div class="head"><h2 id="historyTitle">Progress over time</h2><p id="historySub"></p><div class="keys" id="historyKeys"></div></div>
+    <div class="head"><h2 id="historyTitle">Progress over time</h2><div class="seg" id="historyMode" role="group" aria-label="Chart view"><button type="button" data-m="overall" aria-pressed="true">Overall %</button><button type="button" data-m="layers" aria-pressed="false">Per layer</button></div><p id="historySub"></p><div class="keys" id="historyKeys"></div></div>
     <div id="chart"></div>
     <details><summary>Show as a table</summary><div id="historyTable"></div></details>
   </section>
   <details id="findings"></details>
 </header>
 <div class="toolbar">
-  <div class="controls">
-    <label>Group <select id="group"><option value="section">by ECMA-376 section</option><option value="phase">by roadmap phase</option><option value="none">flat</option></select></label>
-    <label>Sort <select id="sort"><option value="clause">by clause</option><option value="documents">by documents (at least)</option><option value="name">by name</option></select></label>
-    <label>Only <select id="only"><option value="">all</option><option value="corpus">in the corpus</option><option value="phase1">phase 1</option><option value="claimed">claimed</option></select></label>
-    <label class="search" aria-label="Dim all but"><input id="find" placeholder="Dim all but&hellip; element name" size="14"></label>
-  </div>
-  <div class="legend" id="legend"></div>
+    <label class="field"><span>Group</span><select id="group"><option value="section">by ECMA-376 section</option><option value="phase">by roadmap phase</option><option value="none">flat</option></select></label>
+    <label class="field"><span>Sort</span><select id="sort"><option value="clause">by clause</option><option value="documents">by documents (at least)</option><option value="name">by name</option></select></label>
+    <div class="chips" id="onlyChips" role="group" aria-label="Only"><span>Only</span></div>
+    <select id="only" hidden><option value="">all</option><option value="corpus">in the corpus</option><option value="phase1">phase 1</option><option value="claimed">claimed</option></select>
+    <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="find" placeholder="Dim all but&hellip; element name" aria-label="Dim all but element name"></label>
 </div>
+<div class="legend" id="legend"></div>
 <main id="main"></main>
 <footer id="foot"></footer>
 </div>
@@ -451,6 +467,18 @@ globalThis.StatusLogic = (() => {
   }
 
   const S = globalThis.StatusLogic;
+  // "Only" is the hidden select's options drawn as chips, each with how many
+  // squares it keeps on the day shown; a chip sets the select.
+  function chips() {
+    const only = $("only");
+    const kept = (v) => v === "changed" ? D.cells.filter(c => change(c)).length : D.cells.filter(c => S.keep(c, v)).length;
+    $("onlyChips").innerHTML = `<span>Only</span>` + [...only.options].map(o =>
+      `<button type="button" data-v="${escape(o.value)}" aria-pressed="${o.value === only.value}">${escape(o.text[0].toUpperCase() + o.text.slice(1))}<small>${kept(o.value)}</small></button>`).join("");
+  }
+  $("onlyChips").addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b || b.dataset.v === $("only").value) return;
+    $("only").value = b.dataset.v; chips(); render();
+  });
   const options = () => ({group: $("group").value, sort: $("sort").value, only: $("only").value === "changed" ? "" : $("only").value, find: $("find").value});
   const cells = () => $("only").value === "changed" ? D.cells.filter(c => change(c)) : D.cells;
   // Group, sort, Only and the day redraw the board and replay its entrance;
@@ -506,6 +534,7 @@ globalThis.StatusLogic = (() => {
   for (const id of ["group", "sort", "only"]) $(id).addEventListener("input", render);
   $("find").addEventListener("input", refind);
   summary();
+  chips();
   render();
 
   // History: history.json and snapshots/ sit beside the published page, one
@@ -517,34 +546,59 @@ globalThis.StatusLogic = (() => {
   const SVG_PAD = {l: 34, r: 12, t: 10, b: 24};
   let days = [];
   const snapshots = new Map();
+  // Two views of one history, never one chart with two scales: "overall",
+  // the share of every element-by-layer step witnessed (the ring's number;
+  // each point's layer counts summed over elements times layers), and
+  // "layers", how many elements reach each layer.
+  let mode = "overall";
+  const overall = (d) => d.elements ? 100 * L.reduce((s, l) => s + (d.layers[l] || 0), 0) / (d.elements * L.length) : 0;
+  const series = () => mode === "overall"
+    ? [{name: "overall", colour: "var(--g2)", value: overall, text: (d) => share(L.reduce((s, l) => s + (d.layers[l] || 0), 0), d.elements * L.length)}]
+    : L.map((l, k) => ({name: l, colour: `var(--s${k + 1})`, value: (d) => d.layers[l] || 0, text: (d) => `${d.layers[l] || 0} / ${d.elements}`}));
+  function keys() {
+    const last = days[days.length - 1], picked = then ? days.find(d => d.key === then.key) || last : last;
+    $("historySub").textContent = (mode === "overall"
+      ? `Share of all ${last.elements * L.length} element×layer steps witnessed`
+      : `Elements of ${last.elements} reaching each layer`) + `, one point per day since ${dayLabel(days[0].date)}. Click a day to see the page as it was.`;
+    $("historyKeys").innerHTML = series().map(s => `<span style="--c:${s.colour}"><i></i>${escape(s.name)} <b>${escape(s.text(picked))}</b></span>`).join("");
+    for (const b of $("historyMode").querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.m === mode));
+  }
   function chart() {
     const box = $("chart"), w = box.clientWidth, h = box.clientHeight;
     if (!days.length || !w) return;
+    keys();
+    const lines = series();
     const pad = SVG_PAD, iw = w - pad.l - pad.r, ih = h - pad.t - pad.b;
     const t0 = days[0].at, t1 = days[days.length - 1].at, span = Math.max(t1 - t0, 864e5);
-    const top = Math.max(10, ...days.flatMap(d => L.map(l => d.layers[l] || 0)));
-    const step = [1, 2, 5, 10, 20, 25, 50, 100, 200, 250, 500].find(s => top / s <= 5) || Math.ceil(top / 5);
-    const ymax = Math.ceil(top / step) * step;
+    const floor = mode === "overall" ? 1 : 10;
+    const top = Math.max(floor, ...days.flatMap(d => lines.map(s => s.value(d))));
+    const steps = mode === "overall" ? [0.1, 0.2, 0.25, 0.5, 1, 2, 2.5, 5, 10, 20, 25] : [1, 2, 5, 10, 20, 25, 50, 100, 200, 250, 500];
+    const step = steps.find(s => top / s <= 5) || Math.ceil(top / 5);
+    const ymax = Math.min(mode === "overall" ? 100 : Infinity, Math.ceil(top / step - 1e-9) * step);
+    const tick = (v) => mode === "overall" ? (+v.toFixed(2)) + "%" : String(v);
     const x = (t) => pad.l + (days.length === 1 ? iw / 2 : iw * (t - t0) / span);
     const y = (v) => pad.t + ih - ih * v / ymax;
-    let s = `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Elements reaching each layer, per day"><g class="grid">`;
-    for (let v = 0; v <= ymax; v += step) s += `<line x1="${pad.l}" x2="${w - pad.r}" y1="${y(v)}" y2="${y(v)}"/>`;
+    let s = `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${mode === "overall" ? "Share of element-by-layer steps witnessed, per day" : "Elements reaching each layer, per day"}">`
+      + `<defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--g2)" stop-opacity=".35"/><stop offset="1" stop-color="var(--g2)" stop-opacity="0"/></linearGradient></defs><g class="grid">`;
+    const ticks = []; for (let i = 0; i * step <= ymax + 1e-9; i++) ticks.push(i * step);
+    for (const v of ticks) s += `<line x1="${pad.l}" x2="${w - pad.r}" y1="${y(v)}" y2="${y(v)}"/>`;
     s += `</g><g class="axis">`;
-    for (let v = 0; v <= ymax; v += step) s += `<text x="${pad.l - 8}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
+    for (const v of ticks) s += `<text x="${pad.l - 8}" y="${y(v) + 4}" text-anchor="end">${tick(v)}</text>`;
     const every = Math.max(1, Math.ceil(days.length / Math.max(1, Math.floor(iw / 70))));
     days.forEach((d, i) => { if (i % every === 0 || i === days.length - 1) s += `<text x="${x(d.at)}" y="${h - 6}" text-anchor="middle">${escape(dayLabel(d.date))}</text>`; });
     s += `</g>`;
     const picked = then ? days.find(d => d.key === then.key) : days[days.length - 1];
     if (picked) s += `<line class="pick" x1="${x(picked.at)}" x2="${x(picked.at)}" y1="${pad.t}" y2="${pad.t + ih}"/>`;
     // Later layers draw first, so where two layers agree the earlier one shows.
-    L.slice().reverse().forEach((l) => {
-      const k = L.indexOf(l);
-      const pts = days.map(d => [x(d.at), y(d.layers[l] || 0)]);
+    lines.slice().reverse().forEach((line) => {
+      const k = lines.indexOf(line);
+      const pts = days.map(d => [x(d.at), y(line.value(d))]);
       let p = `M${pts[0][0]},${pts[0][1]}`;
       for (let i = 1; i < pts.length; i++) p += `H${pts[i][0]}V${pts[i][1]}`;
       if (pts.length === 1) p += `h0.01`;
-      s += `<g class="series" style="--k:${k}"><path class="draw" d="${p}" stroke="var(--s${k + 1})"/>`
-        + days.map((d, i) => d === picked ? `<circle cx="${pts[i][0]}" cy="${pts[i][1]}" r="4.5" fill="var(--s${k + 1})"/>` : "").join("") + `</g>`;
+      if (mode === "overall") s += `<path class="area" d="${p}V${y(0)}H${pts[0][0]}Z" fill="url(#areaGrad)"/>`;
+      s += `<g class="series" style="--k:${k}"><path class="draw" d="${p}" stroke="${line.colour}"/>`
+        + days.map((d, i) => d === picked ? `<circle cx="${pts[i][0]}" cy="${pts[i][1]}" r="4.5" fill="${line.colour}"/>` : "").join("") + `</g>`;
     });
     s += `<line class="cross" id="cross" y1="${pad.t}" y2="${pad.t + ih}"/></svg>`;
     box.innerHTML = s;
@@ -557,15 +611,21 @@ globalThis.StatusLogic = (() => {
     box.onmousemove = (e) => {
       const d = nearest(e), cx = x(d.at), cross = $("cross"), r = box.getBoundingClientRect();
       cross.setAttribute("x1", cx); cross.setAttribute("x2", cx); cross.classList.add("on");
+      const witnessed = L.reduce((n, l) => n + (d.layers[l] || 0), 0);
       tip.innerHTML = `<h3 style="font-family:inherit">${escape(dayLabel(d.date, true))}</h3>`
         + `<div class="clause">commit <code>${escape(d.sha.slice(0, 12))}</code>${d.count > 1 ? ` &middot; last of ${d.count} that day` : ""}</div>`
-        + `<div style="margin-top:8px">${L.map((l, k) => `<div class="rowv" style="--c:var(--s${k + 1})"><i></i>${escape(l)}<b>${d.layers[l] || 0} / ${d.elements}</b></div>`).join("")}</div>`
+        + `<div class="rowv" style="--c:var(--g2);margin-top:8px"><i></i>overall<b>${share(witnessed, d.elements * L.length)} &middot; ${witnessed} / ${d.elements * L.length} steps</b></div>`
+        + `<div style="margin-top:4px">${L.map((l, k) => `<div class="rowv" style="--c:var(--s${k + 1})"><i></i>${escape(l)}<b>${d.layers[l] || 0} / ${d.elements}</b></div>`).join("")}</div>`
         + `<div class="more">${d === days[days.length - 1] ? "Click to come back to today" : "Click to see the page on this day"}</div>`;
       place({right: r.left + cx, left: r.left + cx, top: r.top + 8});
     };
     box.onmouseleave = () => { hide(); const c = $("cross"); if (c) c.classList.remove("on"); };
     box.onclick = (e) => pick(nearest(e));
   }
+  $("historyMode").addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b || b.dataset.m === mode) return;
+    mode = b.dataset.m; chart();
+  });
   // Shows the page on `day`, or today's for the last day or none.
   async function pick(day) {
     if (!day || day === days[days.length - 1]) { D = NOW; then = null; }
@@ -578,7 +638,7 @@ globalThis.StatusLogic = (() => {
       D = snapshots.get(day.snapshot); then = day;
     }
     try { history.replaceState(null, "", then ? "#day=" + then.key : location.pathname + location.search); } catch (e) {}
-    hide(); summary(); render(); chart();
+    hide(); summary(); chips(); render(); chart();
   }
   $("whenBack").addEventListener("click", () => pick(null));
   function load(points) {
@@ -589,11 +649,8 @@ globalThis.StatusLogic = (() => {
     }
     days = [...byDay.values()];
     if (!days.length) return;
-    const last = days[days.length - 1];
-    $("historySub").textContent = `Elements of ${last.elements} reaching each layer, one point per day since ${dayLabel(days[0].date)}. Click a day to see the page as it was.`;
-    $("historyKeys").innerHTML = L.map((l, k) => `<span style="--c:var(--s${k + 1})"><i></i>${escape(l)} <b>${last.layers[l] || 0}</b></span>`).join("");
-    $("historyTable").innerHTML = `<table><thead><tr><th>Day</th>${L.map(l => `<th>${escape(l)}</th>`).join("")}<th>commit</th></tr></thead><tbody>`
-      + days.slice().reverse().map(d => `<tr><td>${escape(d.key)}</td>${L.map(l => `<td>${d.layers[l] || 0}</td>`).join("")}<td><code>${escape(d.sha.slice(0, 12))}</code></td></tr>`).join("")
+    $("historyTable").innerHTML = `<table><thead><tr><th>Day</th><th>overall</th>${L.map(l => `<th>${escape(l)}</th>`).join("")}<th>commit</th></tr></thead><tbody>`
+      + days.slice().reverse().map(d => `<tr><td>${escape(d.key)}</td><td>${share(L.reduce((n, l) => n + (d.layers[l] || 0), 0), d.elements * L.length)}</td>${L.map(l => `<td>${d.layers[l] || 0}</td>`).join("")}<td><code>${escape(d.sha.slice(0, 12))}</code></td></tr>`).join("")
       + `</tbody></table>`;
     $("history").hidden = false;
     chart();
